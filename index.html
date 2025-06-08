@@ -186,96 +186,96 @@
     </div>
 
     <div id="app">
-        <div class="container mx-auto px-4 py-6">
-            <div class="max-w-lg mx-auto">
+        <div class="container mx-auto px-4 py-8">
+            <div class="max-w-2xl mx-auto">
                 
                 <!-- Header -->
-                <div class="text-center mb-8">
-                    <h1 class="text-4xl font-bold text-white mb-2">🔥 Pleasure Track</h1>
-                    <p class="text-purple-200">Tu diario íntimo privado</p>
+                <div class="text-center mb-10">
+                    <h1 class="text-5xl font-bold text-white mb-3">🔥 Pleasure Track</h1>
+                    <p class="text-purple-200 text-lg">Tu diario íntimo privado</p>
                 </div>
 
                 <!-- Main Card -->
-                <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-7 border border-white/20 shadow-2xl mb-5">
+                <div class="bg-white/10 backdrop-blur-lg rounded-3xl p-8 border border-white/20 shadow-2xl mb-6">
                     
                     <!-- Counter -->
-                    <div class="text-center mb-7">
-                        <div class="mb-3">
-                            <h3 class="text-lg text-purple-200 mb-1">Este Mes</h3>
-                            <p class="text-sm text-purple-300" id="currentMonth"></p>
+                    <div class="text-center mb-8">
+                        <div class="mb-4">
+                            <h3 class="text-xl text-purple-200 mb-2">Este Mes</h3>
+                            <p class="text-base text-purple-300" id="currentMonth"></p>
                         </div>
-                        <div class="counter-circle w-28 h-28 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <span class="text-4xl font-bold text-white" id="monthCounter">0</span>
+                        <div class="counter-circle w-36 h-36 rounded-full flex items-center justify-center mx-auto mb-5">
+                            <span class="text-5xl font-bold text-white" id="monthCounter">0</span>
                         </div>
-                        <h2 class="text-xl font-semibold text-white mb-2">Encuentros Registrados</h2>
-                        <p class="text-purple-200">Añade tu último encuentro</p>
+                        <h2 class="text-2xl font-semibold text-white mb-3">Encuentros Registrados</h2>
+                        <p class="text-purple-200 text-lg">Añade tu último encuentro</p>
                         
                         <!-- Promedio del mes -->
-                        <div id="monthAverage" class="mt-4 hidden">
-                            <div class="flex items-center justify-center gap-2">
-                                <span class="text-purple-200">Promedio:</span>
-                                <div class="flex" id="monthAverageStars"></div>
-                                <span class="text-white font-semibold" id="monthAverageValue">0</span>
+                        <div id="monthAverage" class="mt-5 hidden">
+                            <div class="flex items-center justify-center gap-3">
+                                <span class="text-purple-200 text-lg">Promedio:</span>
+                                <div class="flex text-lg" id="monthAverageStars"></div>
+                                <span class="text-white font-semibold text-lg" id="monthAverageValue">0</span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Quick Stats - Tamaño intermedio -->
-                    <div id="quickStats" class="grid grid-cols-4 gap-3 mb-7" style="display: none;">
-                        <div class="bg-white/10 rounded-lg p-3 text-center">
-                            <div class="text-xl font-bold text-white" id="statMonth">0</div>
-                            <div class="text-purple-200 text-sm">Mes</div>
+                    <!-- Quick Stats - Más grandes -->
+                    <div id="quickStats" class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8" style="display: none;">
+                        <div class="bg-white/10 rounded-xl p-4 text-center">
+                            <div class="text-2xl font-bold text-white" id="statMonth">0</div>
+                            <div class="text-purple-200">Mes</div>
                         </div>
-                        <div class="bg-white/10 rounded-lg p-3 text-center">
-                            <div class="text-xl font-bold text-white" id="statWeek">0</div>
-                            <div class="text-purple-200 text-sm">Semana</div>
+                        <div class="bg-white/10 rounded-xl p-4 text-center">
+                            <div class="text-2xl font-bold text-white" id="statWeek">0</div>
+                            <div class="text-purple-200">Semana</div>
                         </div>
-                        <div class="bg-white/10 rounded-lg p-3 text-center">
-                            <div class="text-xl font-bold text-white" id="statStreak">0</div>
-                            <div class="text-purple-200 text-sm">Racha</div>
+                        <div class="bg-white/10 rounded-xl p-4 text-center">
+                            <div class="text-2xl font-bold text-white" id="statStreak">0</div>
+                            <div class="text-purple-200">Racha</div>
                         </div>
-                        <div class="bg-white/10 rounded-lg p-3 text-center">
-                            <div class="text-xl font-bold text-white" id="statTotal">0</div>
-                            <div class="text-purple-200 text-sm">Total</div>
+                        <div class="bg-white/10 rounded-xl p-4 text-center">
+                            <div class="text-2xl font-bold text-white" id="statTotal">0</div>
+                            <div class="text-purple-200">Total</div>
                         </div>
                     </div>
 
-                    <!-- Buttons - Tamaño intermedio -->
-                    <div class="flex gap-4 justify-center mb-7">
-                        <button onclick="showAddModal()" class="btn-primary text-white font-semibold py-4 px-7 rounded-xl shadow-lg">
+                    <!-- Buttons - Más grandes -->
+                    <div class="flex gap-5 justify-center mb-8">
+                        <button onclick="showAddModal()" class="btn-primary text-white font-semibold py-5 px-8 rounded-2xl shadow-lg text-lg">
                             🔥 Añadir Encuentro
                         </button>
-                        <button onclick="quitarActividad()" id="btnQuitar" class="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-semibold py-4 px-5 rounded-xl shadow-lg" style="display: none;">
+                        <button onclick="quitarActividad()" id="btnQuitar" class="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-semibold py-5 px-6 rounded-2xl shadow-lg text-lg" style="display: none;">
                             ❌
                         </button>
                     </div>
 
-                    <!-- Action Buttons - Tamaño intermedio -->
-                    <div class="grid grid-cols-2 gap-4">
-                        <button onclick="toggleStats()" class="bg-white/20 hover:bg-white/30 text-white py-3 px-5 rounded-lg transition-all">
+                    <!-- Action Buttons - Más grandes -->
+                    <div class="grid grid-cols-2 gap-5">
+                        <button onclick="toggleStats()" class="bg-white/20 hover:bg-white/30 text-white py-4 px-6 rounded-xl transition-all text-base">
                             📊 <span id="statsButtonText">Stats</span>
                         </button>
-                        <button onclick="showRankingModal()" id="btnRanking" class="bg-purple-600 hover:bg-purple-700 text-white py-3 px-5 rounded-lg transition-all" style="display: none;">
+                        <button onclick="showRankingModal()" id="btnRanking" class="bg-purple-600 hover:bg-purple-700 text-white py-4 px-6 rounded-xl transition-all text-base" style="display: none;">
                             🏆 Rankings
                         </button>
-                        <button onclick="exportarDatos()" id="btnExport" class="bg-white/20 hover:bg-white/30 text-white py-3 px-5 rounded-lg transition-all" style="display: none;">
+                        <button onclick="exportarDatos()" id="btnExport" class="bg-white/20 hover:bg-white/30 text-white py-4 px-6 rounded-xl transition-all text-base" style="display: none;">
                             📥 Exportar
                         </button>
-                        <button onclick="limpiarDatos()" id="btnClear" class="bg-red-500/20 hover:bg-red-500/30 text-white py-3 px-5 rounded-lg transition-all" style="display: none;">
+                        <button onclick="limpiarDatos()" id="btnClear" class="bg-red-500/20 hover:bg-red-500/30 text-white py-4 px-6 rounded-xl transition-all text-base" style="display: none;">
                             🗑️ Limpiar
                         </button>
                     </div>
                 </div>
 
                 <!-- Empty State -->
-                <div id="emptyState" class="text-center py-8">
-                    <p class="text-purple-200 text-lg">¡Comienza a registrar tus encuentros para ver estadísticas! 🔥</p>
+                <div id="emptyState" class="text-center py-10">
+                    <p class="text-purple-200 text-xl">¡Comienza a registrar tus encuentros para ver estadísticas! 🔥</p>
                 </div>
 
                 <!-- Stats -->
-                <div id="statsSection" class="space-y-5" style="display: none;">
-                    <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-5 border border-white/20">
-                        <h3 class="text-xl font-semibold text-white mb-4">📈 Estadísticas Hot</h3>
+                <div id="statsSection" class="space-y-6" style="display: none;">
+                    <div class="bg-white/10 backdrop-blur-lg rounded-3xl p-6 border border-white/20">
+                        <h3 class="text-2xl font-semibold text-white mb-5">📈 Estadísticas Hot</h3>
                         <div id="statsContent" class="text-purple-200">
                             <!-- Stats content will be populated by JavaScript -->
                         </div>
