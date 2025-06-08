@@ -528,8 +528,22 @@
         function getActividadesSemanaActual() {
             const ahora = new Date();
             const inicioSemana = new Date(ahora);
-            inicioSemana.setDate(ahora.getDate() - ahora.getDay());
-            return actividades.filter(a => new Date(a.fecha) >= inicioSemana).length;
+            
+            // Configurar inicio de semana al lunes (día 1) en lugar de domingo (día 0)
+            const diaActual = ahora.getDay();
+            const diasAtras = diaActual === 0 ? 6 : diaActual - 1; // Si es domingo (0), ir 6 días atrás
+            
+            inicioSemana.setDate(ahora.getDate() - diasAtras);
+            inicioSemana.setHours(0, 0, 0, 0); // Inicio del día
+            
+            const finSemana = new Date(inicioSemana);
+            finSemana.setDate(inicioSemana.getDate() + 6);
+            finSemana.setHours(23, 59, 59, 999); // Final del día
+            
+            return actividades.filter(a => {
+                const fechaActividad = new Date(a.fecha);
+                return fechaActividad >= inicioSemana && fechaActividad <= finSemana;
+            }).length;
         }
 
         // Calcular promedio del mes
