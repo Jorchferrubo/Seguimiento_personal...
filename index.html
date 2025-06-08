@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seguimiento Personal</title>
-    <meta name="description" content="Aplicación personal discreta para registrar y analizar tu actividad íntima">
+    <title>Pleasure Track</title>
+    <meta name="description" content="Tu aplicación privada para registrar y analizar tus encuentros íntimos">
     <meta name="theme-color" content="#7c3aed">
     
     <!-- PWA Meta Tags -->
     <link rel="manifest" id="manifest-placeholder">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="Seguimiento Personal">
+    <meta name="apple-mobile-web-app-title" content="Pleasure Track">
     <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCIgdmlld0JveD0iMCAwIDE4MCAxODAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojZWM0ODk5O3N0b3Atb3BhY2l0eToxIiAvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6Izc5NTJiMztzdG9wLW9wYWNpdHk6MSIgLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCIgcng9IjQwIiBmaWxsPSJ1cmwoI2dyYWQpIi8+PGNpcmNsZSBjeD0iOTAiIGN5PSI5MCIgcj0iNDAiIGZpbGw9IndoaXRlIiBmaWxsLW9wYWNpdHk9IjAuMiIvPjx0ZXh0IHg9IjkwIiB5PSIxMDAiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSI0OCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj4+PC90ZXh0Pjwvc3ZnPg==">
     
     <script src="https://cdn.tailwindcss.com"></script>
@@ -31,7 +31,7 @@
         }
         .counter-circle {
             background: linear-gradient(135deg, #ec4899, #7952b3);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
         }
         .install-bounce {
             animation: bounce 2s infinite;
@@ -95,7 +95,7 @@
     <!-- Modal para añadir actividad -->
     <div id="addModal" class="hidden fixed inset-0 bg-black/50 modal flex items-center justify-center z-50 p-4">
         <div class="bg-white/10 backdrop-blur-lg rounded-3xl p-6 border border-white/20 max-w-md w-full max-h-[90vh] overflow-y-auto">
-            <h3 class="text-xl font-bold text-white mb-4 text-center">Nueva Actividad</h3>
+            <h3 class="text-xl font-bold text-white mb-4 text-center">🔥 Nuevo Encuentro</h3>
             
             <div class="space-y-4">
                 <!-- Fecha y Hora -->
@@ -186,96 +186,96 @@
     </div>
 
     <div id="app">
-        <div class="container mx-auto px-4 py-8">
-            <div class="max-w-2xl mx-auto">
+        <div class="container mx-auto px-3 py-4">
+            <div class="max-w-xl mx-auto">
                 
                 <!-- Header -->
-                <div class="text-center mb-8">
-                    <h1 class="text-4xl font-bold text-white mb-2">Seguimiento Personal</h1>
-                    <p class="text-purple-200">Registra y analiza tu actividad íntima</p>
+                <div class="text-center mb-6">
+                    <h1 class="text-3xl font-bold text-white mb-1">🔥 Pleasure Track</h1>
+                    <p class="text-purple-200 text-sm">Tu diario íntimo privado</p>
                 </div>
 
                 <!-- Main Card -->
-                <div class="bg-white/10 backdrop-blur-lg rounded-3xl p-8 border border-white/20 shadow-2xl mb-6">
+                <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20 shadow-2xl mb-4">
                     
                     <!-- Counter -->
-                    <div class="text-center mb-8">
-                        <div class="mb-3">
-                            <h3 class="text-lg text-purple-200 mb-1">Este Mes</h3>
-                            <p class="text-sm text-purple-300" id="currentMonth"></p>
+                    <div class="text-center mb-6">
+                        <div class="mb-2">
+                            <h3 class="text-base text-purple-200 mb-1">Este Mes</h3>
+                            <p class="text-xs text-purple-300" id="currentMonth"></p>
                         </div>
-                        <div class="counter-circle w-32 h-32 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <span class="text-4xl font-bold text-white" id="monthCounter">0</span>
+                        <div class="counter-circle w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <span class="text-3xl font-bold text-white" id="monthCounter">0</span>
                         </div>
-                        <h2 class="text-2xl font-semibold text-white mb-2">Total de Actividades</h2>
-                        <p class="text-purple-200">Toca el botón para añadir una nueva</p>
+                        <h2 class="text-lg font-semibold text-white mb-1">Encuentros Registrados</h2>
+                        <p class="text-purple-200 text-sm">Añade tu último encuentro</p>
                         
                         <!-- Promedio del mes -->
-                        <div id="monthAverage" class="mt-4 hidden">
+                        <div id="monthAverage" class="mt-3 hidden">
                             <div class="flex items-center justify-center gap-2">
-                                <span class="text-purple-200">Promedio del mes:</span>
-                                <div class="flex" id="monthAverageStars"></div>
-                                <span class="text-white font-semibold" id="monthAverageValue">0</span>
+                                <span class="text-purple-200 text-sm">Promedio:</span>
+                                <div class="flex text-sm" id="monthAverageStars"></div>
+                                <span class="text-white font-semibold text-sm" id="monthAverageValue">0</span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Quick Stats -->
-                    <div id="quickStats" class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8" style="display: none;">
-                        <div class="bg-white/10 rounded-xl p-4 text-center">
-                            <div class="text-2xl font-bold text-white" id="statMonth">0</div>
-                            <div class="text-purple-200 text-sm">Este Mes</div>
+                    <!-- Quick Stats - Más compactas -->
+                    <div id="quickStats" class="grid grid-cols-4 gap-2 mb-6" style="display: none;">
+                        <div class="bg-white/10 rounded-lg p-2 text-center">
+                            <div class="text-lg font-bold text-white" id="statMonth">0</div>
+                            <div class="text-purple-200 text-xs">Mes</div>
                         </div>
-                        <div class="bg-white/10 rounded-xl p-4 text-center">
-                            <div class="text-2xl font-bold text-white" id="statWeek">0</div>
-                            <div class="text-purple-200 text-sm">Esta Semana</div>
+                        <div class="bg-white/10 rounded-lg p-2 text-center">
+                            <div class="text-lg font-bold text-white" id="statWeek">0</div>
+                            <div class="text-purple-200 text-xs">Semana</div>
                         </div>
-                        <div class="bg-white/10 rounded-xl p-4 text-center">
-                            <div class="text-2xl font-bold text-white" id="statStreak">0</div>
-                            <div class="text-purple-200 text-sm">Racha Actual</div>
+                        <div class="bg-white/10 rounded-lg p-2 text-center">
+                            <div class="text-lg font-bold text-white" id="statStreak">0</div>
+                            <div class="text-purple-200 text-xs">Racha</div>
                         </div>
-                        <div class="bg-white/10 rounded-xl p-4 text-center">
-                            <div class="text-2xl font-bold text-white" id="statTotal">0</div>
-                            <div class="text-purple-200 text-sm">Total</div>
+                        <div class="bg-white/10 rounded-lg p-2 text-center">
+                            <div class="text-lg font-bold text-white" id="statTotal">0</div>
+                            <div class="text-purple-200 text-xs">Total</div>
                         </div>
                     </div>
 
-                    <!-- Buttons -->
-                    <div class="flex gap-4 justify-center mb-8">
-                        <button onclick="showAddModal()" class="btn-primary text-white font-semibold py-4 px-8 rounded-2xl shadow-lg">
-                            + Añadir Actividad
+                    <!-- Buttons - Más compactos -->
+                    <div class="flex gap-3 justify-center mb-6">
+                        <button onclick="showAddModal()" class="btn-primary text-white font-semibold py-3 px-6 rounded-xl shadow-lg">
+                            🔥 Añadir Encuentro
                         </button>
-                        <button onclick="quitarActividad()" id="btnQuitar" class="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-semibold py-4 px-8 rounded-2xl shadow-lg" style="display: none;">
-                            - Quitar Última
+                        <button onclick="quitarActividad()" id="btnQuitar" class="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-semibold py-3 px-4 rounded-xl shadow-lg" style="display: none;">
+                            ❌
                         </button>
                     </div>
 
-                    <!-- Action Buttons -->
-                    <div class="flex flex-wrap gap-4 justify-center">
-                        <button onclick="toggleStats()" class="bg-white/20 hover:bg-white/30 text-white py-3 px-6 rounded-xl transition-all">
-                            📊 <span id="statsButtonText">Ver Estadísticas</span>
+                    <!-- Action Buttons - Más compactos -->
+                    <div class="grid grid-cols-2 gap-3">
+                        <button onclick="toggleStats()" class="bg-white/20 hover:bg-white/30 text-white py-2 px-4 rounded-lg transition-all text-sm">
+                            📊 <span id="statsButtonText">Stats</span>
                         </button>
-                        <button onclick="showRankingModal()" id="btnRanking" class="bg-purple-600 hover:bg-purple-700 text-white py-3 px-6 rounded-xl transition-all" style="display: none;">
+                        <button onclick="showRankingModal()" id="btnRanking" class="bg-purple-600 hover:bg-purple-700 text-white py-2 px-4 rounded-lg transition-all text-sm" style="display: none;">
                             🏆 Rankings
                         </button>
-                        <button onclick="exportarDatos()" id="btnExport" class="bg-white/20 hover:bg-white/30 text-white py-3 px-6 rounded-xl transition-all" style="display: none;">
+                        <button onclick="exportarDatos()" id="btnExport" class="bg-white/20 hover:bg-white/30 text-white py-2 px-4 rounded-lg transition-all text-sm" style="display: none;">
                             📥 Exportar
                         </button>
-                        <button onclick="limpiarDatos()" id="btnClear" class="bg-red-500/20 hover:bg-red-500/30 text-white py-3 px-6 rounded-xl transition-all" style="display: none;">
-                            🗑️ Limpiar Datos
+                        <button onclick="limpiarDatos()" id="btnClear" class="bg-red-500/20 hover:bg-red-500/30 text-white py-2 px-4 rounded-lg transition-all text-sm" style="display: none;">
+                            🗑️ Limpiar
                         </button>
                     </div>
                 </div>
 
                 <!-- Empty State -->
-                <div id="emptyState" class="text-center py-8">
-                    <p class="text-purple-200 text-lg">¡Comienza a registrar tu actividad para ver estadísticas!</p>
+                <div id="emptyState" class="text-center py-6">
+                    <p class="text-purple-200">¡Comienza a registrar tus encuentros para ver estadísticas! 🔥</p>
                 </div>
 
                 <!-- Stats -->
-                <div id="statsSection" class="space-y-6" style="display: none;">
-                    <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20">
-                        <h3 class="text-xl font-semibold text-white mb-4">📈 Estadísticas Detalladas</h3>
+                <div id="statsSection" class="space-y-4" style="display: none;">
+                    <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-4 border border-white/20">
+                        <h3 class="text-lg font-semibold text-white mb-3">📈 Estadísticas Hot</h3>
                         <div id="statsContent" class="text-purple-200">
                             <!-- Stats content will be populated by JavaScript -->
                         </div>
@@ -287,9 +287,9 @@
 
     <script>
         const manifestData = {
-            "name": "Seguimiento Personal",
-            "short_name": "Seguimiento",
-            "description": "Aplicación personal discreta para registrar y analizar tu actividad íntima",
+            "name": "Pleasure Track",
+            "short_name": "Pleasure",
+            "description": "Tu aplicación privada para registrar y analizar tus encuentros íntimos",
             "start_url": "./",
             "display": "standalone",
             "background_color": "#1e1b4b",
@@ -465,7 +465,7 @@
             });
             
             showNotification(
-                'Actividad registrada',
+                'Encuentro registrado 🔥',
                 `${fechaFormateada} a las ${horaFormateada}`
             );
             
@@ -597,7 +597,7 @@
         }
 
         function quitarActividad() {
-            if (actividades.length > 0 && confirm('¿Quitar la última actividad registrada?')) {
+            if (actividades.length > 0 && confirm('¿Quitar el último encuentro registrado?')) {
                 const masReciente = actividades.reduce((mas, actual) => 
                     new Date(actual.fecha) > new Date(mas.fecha) ? actual : mas
                 );
@@ -720,11 +720,11 @@
             
             if (mostrandoStats) {
                 statsSection.style.display = 'block';
-                buttonText.textContent = 'Ocultar Estadísticas';
+                buttonText.textContent = 'Ocultar Stats';
                 generarEstadisticasDetalladas();
             } else {
                 statsSection.style.display = 'none';
-                buttonText.textContent = 'Ver Estadísticas';
+                buttonText.textContent = 'Ver Stats';
             }
         }
 
