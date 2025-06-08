@@ -1,1 +1,864 @@
-<!DOCTYPE html><html lang="es"><head>    <meta charset="UTF-8">    <meta name="viewport" content="width=device-width, initial-scale=1.0">    <title>Seguimiento Personal</title>    <meta name="description" content="Aplicación personal discreta para registrar y analizar tu actividad íntima">    <meta name="theme-color" content="#7c3aed">        <!-- PWA Meta Tags -->    <link rel="manifest" id="manifest-placeholder">    <meta name="apple-mobile-web-app-capable" content="yes">    <meta name="apple-mobile-web-app-status-bar-style" content="default">    <meta name="apple-mobile-web-app-title" content="Seguimiento Personal">    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCIgdmlld0JveD0iMCAwIDE4MCAxODAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojZWM0ODk5O3N0b3Atb3BhY2l0eToxIiAvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6Izc5NTJiMztzdG9wLW9wYWNpdHk6MSIgLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCIgcng9IjQwIiBmaWxsPSJ1cmwoI2dyYWQpIi8+PGNpcmNsZSBjeD0iOTAiIGN5PSI5MCIgcj0iNDAiIGZpbGw9IndoaXRlIiBmaWxsLW9wYWNpdHk9IjAuMiIvPjx0ZXh0IHg9IjkwIiB5PSIxMDAiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSI0OCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj4rPC90ZXh0Pjwvc3ZnPg==">    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImdyYWQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiNlYzQ4OTk7c3RvcC1vcGFjaXR5OjEiIC8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojNzk1MmIzO3N0b3Atb3BhY2l0eToxIiAvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgcng9IjgiIGZpbGw9InVybCgjZ3JhZCkiLz48Y2lyY2xlIGN4PSIxNiIgY3k9IjE2IiByPSIxMCIgZmlsbD0id2hpdGUiIGZpbGwtb3BhY2l0eT0iMC4yIi8+PHRleHQgeD0iMTYiIHk9IjIxIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+KzwvdGV4dD48L3N2Zz4=">        <script src="https://cdn.tailwindcss.com"></script>    <style>        body {            overscroll-behavior: none;            touch-action: manipulation;            font-family: system-ui, sans-serif;        }        .btn-primary {            background: linear-gradient(135deg, #ec4899, #7952b3);            transition: all 0.3s ease;        }        .btn-primary:hover {            transform: translateY(-2px);            box-shadow: 0 8px 25px rgba(0,0,0,0.3);        }        .counter-circle {            background: linear-gradient(135deg, #ec4899, #7952b3);            box-shadow: 0 8px 32px rgba(0,0,0,0.3);        }        .install-bounce {            animation: bounce 2s infinite;        }        @keyframes bounce {            0%, 20%, 53%, 80%, 100% { transform: translate3d(0,0,0); }            40%, 43% { transform: translate3d(0,-8px,0); }            70% { transform: translate3d(0,-4px,0); }            90% { transform: translate3d(0,-2px,0); }        }    </style></head><body class="bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 min-h-screen">        <!-- Install Banner -->    <div id="installBanner" class="bg-gradient-to-r from-green-500 to-blue-500 text-white p-4 text-center hidden">        <div class="flex items-center justify-center gap-3">            <span class="text-lg install-bounce">📱</span>            <p class="text-sm font-medium">¡Instala la app para un acceso más rápido y privado!</p>            <button id="installButton" class="bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg text-sm font-semibold transition-all">                Instalar App            </button>        </div>    </div>    <div id="app">        <div class="container mx-auto px-4 py-8">            <div class="max-w-2xl mx-auto">                                <!-- Header -->                <div class="text-center mb-8">                    <h1 class="text-4xl font-bold text-white mb-2">Seguimiento Personal</h1>                    <p class="text-purple-200">Registra y analiza tu actividad íntima</p>                </div>                <!-- Main Card -->                <div class="bg-white/10 backdrop-blur-lg rounded-3xl p-8 border border-white/20 shadow-2xl mb-6">                                        <!-- Counter -->                    <div class="text-center mb-8">                        <div class="mb-3">                            <h3 class="text-lg text-purple-200 mb-1">Este Mes</h3>                            <p class="text-sm text-purple-300" id="currentMonth"></p>                        </div>                        <div class="counter-circle w-32 h-32 rounded-full flex items-center justify-center mx-auto mb-4">                            <span class="text-4xl font-bold text-white" id="monthCounter">0</span>                        </div>                        <h2 class="text-2xl font-semibold text-white mb-2">Total de Actividades</h2>                        <p class="text-purple-200">Toca el botón para añadir una nueva</p>                    </div>                    <!-- Quick Stats -->                    <div id="quickStats" class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8" style="display: none;">                        <div class="bg-white/10 rounded-xl p-4 text-center">                            <div class="text-2xl font-bold text-white" id="statMonth">0</div>                            <div class="text-purple-200 text-sm">Este Mes</div>                        </div>                        <div class="bg-white/10 rounded-xl p-4 text-center">                            <div class="text-2xl font-bold text-white" id="statWeek">0</div>                            <div class="text-purple-200 text-sm">Esta Semana</div>                        </div>                        <div class="bg-white/10 rounded-xl p-4 text-center">                            <div class="text-2xl font-bold text-white" id="statStreak">0</div>                            <div class="text-purple-200 text-sm">Racha Actual</div>                        </div>                        <div class="bg-white/10 rounded-xl p-4 text-center">                            <div class="text-2xl font-bold text-white" id="statTotal">0</div>                            <div class="text-purple-200 text-sm">Total</div>                        </div>                    </div>                    <!-- Buttons -->                    <div class="flex gap-4 justify-center mb-8">                        <button onclick="anadirActividad()" class="btn-primary text-white font-semibold py-4 px-8 rounded-2xl shadow-lg">                            + Añadir Actividad                        </button>                        <button onclick="quitarActividad()" id="btnQuitar" class="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-semibold py-4 px-8 rounded-2xl shadow-lg" style="display: none;">                            - Quitar Última                        </button>                    </div>                    <!-- Action Buttons -->                    <div class="flex flex-wrap gap-4 justify-center">                        <button onclick="toggleStats()" class="bg-white/20 hover:bg-white/30 text-white py-3 px-6 rounded-xl transition-all">                            📊 <span id="statsButtonText">Ver Estadísticas</span>                        </button>                        <button onclick="exportarDatos()" id="btnExport" class="bg-white/20 hover:bg-white/30 text-white py-3 px-6 rounded-xl transition-all" style="display: none;">                            📥 Exportar                        </button>                        <button onclick="limpiarDatos()" id="btnClear" class="bg-red-500/20 hover:bg-red-500/30 text-white py-3 px-6 rounded-xl transition-all" style="display: none;">                            🗑️ Limpiar Datos                        </button>                    </div>                </div>                <!-- Empty State -->                <div id="emptyState" class="text-center py-8">                    <p class="text-purple-200 text-lg">¡Comienza a registrar tu actividad para ver estadísticas!</p>                </div>                <!-- Stats -->                <div id="statsSection" class="space-y-6" style="display: none;">                    <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20">                        <h3 class="text-xl font-semibold text-white mb-4">📈 Estadísticas Detalladas</h3>                        <div id="statsContent" class="text-purple-200">                            <!-- Stats content will be populated by JavaScript -->                        </div>                    </div>                </div>            </div>        </div>    </div>    <script>        // Configurar PWA Manifest        const manifestData = {            "name": "Seguimiento Personal",            "short_name": "Seguimiento",            "description": "Aplicación personal discreta para registrar y analizar tu actividad íntima",            "start_url": "./",            "display": "standalone",            "background_color": "#1e1b4b",            "theme_color": "#7c3aed",            "orientation": "portrait",            "categories": ["lifestyle", "health"],            "icons": [                {                    "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgdmlld0JveD0iMCAwIDE5MiAxOTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojZWM0ODk5O3N0b3Atb3BhY2l0eToxIiAvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6Izc5NTJiMztzdG9wLW9wYWNpdHk6MSIgLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgcng9IjQwIiBmaWxsPSJ1cmwoI2dyYWQpIi8+PGNpcmNsZSBjeD0iOTYiIGN5PSI5NiIgcj0iNDAiIGZpbGw9IndoaXRlIiBmaWxsLW9wYWNpdHk9IjAuMiIvPjx0ZXh0IHg9Ijk2IiB5PSIxMTAiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSI1NiIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj4rPC90ZXh0Pjwvc3ZnPg==",                    "sizes": "192x192",                    "type": "image/svg+xml",                    "purpose": "any maskable"                },                {                    "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgdmlld0JveD0iMCAwIDUxMiA1MTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojZWM0ODk5O3N0b3Atb3BhY2l0eToxIiAvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6Izc5NTJiMztzdG9wLW9wYWNpdHk6MSIgLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcng9IjEwMCIgZmlsbD0idXJsKCNncmFkKSIvPjxjaXJjbGUgY3g9IjI1NiIgY3k9IjI1NiIgcj0iMTAwIiBmaWxsPSJ3aGl0ZSIgZmlsbC1vcGFjaXR5PSIwLjIiLz48dGV4dCB4PSIyNTYiIHk9IjI5MCIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0MCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj4+PC90ZXh0Pjwvc3ZnPg==",                    "sizes": "512x512",                    "type": "image/svg+xml",                    "purpose": "any"                }            ]        };        // Crear y enlazar el manifest        const manifestBlob = new Blob([JSON.stringify(manifestData)], { type: 'application/json' });        const manifestURL = URL.createObjectURL(manifestBlob);        document.getElementById('manifest-placeholder').href = manifestURL;        // Variables globales        let actividades = [];        let mostrandoStats = false;        let deferredPrompt = null;                // Meses en español        const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',                      'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];        // PWA Install functionality        window.addEventListener('beforeinstallprompt', (e) => {            e.preventDefault();            deferredPrompt = e;            document.getElementById('installBanner').classList.remove('hidden');        });        document.getElementById('installButton').addEventListener('click', async () => {            if (deferredPrompt) {                deferredPrompt.prompt();                const { outcome } = await deferredPrompt.userChoice;                if (outcome === 'accepted') {                    document.getElementById('installBanner').classList.add('hidden');                }                deferredPrompt = null;            }        });        window.addEventListener('appinstalled', () => {            document.getElementById('installBanner').classList.add('hidden');        });        // Cargar datos al iniciar        function cargarDatos() {            const datosGuardados = localStorage.getItem('seguimiento-personal-datos');            if (datosGuardados) {                actividades = JSON.parse(datosGuardados);            }            actualizarInterfaz();            actualizarMesActual();        }        // Guardar datos        function guardarDatos() {            localStorage.setItem('seguimiento-personal-datos', JSON.stringify(actividades));        }        // Actualizar mes actual        function actualizarMesActual() {            const ahora = new Date();            document.getElementById('currentMonth').textContent = meses[ahora.getMonth()] + ' ' + ahora.getFullYear();        }        // Añadir actividad        function anadirActividad() {            const ahora = new Date();            const nuevaActividad = {                id: Date.now(),                fecha: ahora.toISOString(),                dia: ahora.getDay(),                hora: ahora.getHours(),                mes: ahora.getMonth(),                ano: ahora.getFullYear()            };                        actividades.push(nuevaActividad);            guardarDatos();            actualizarInterfaz();                        // Vibración si está disponible            if (navigator.vibrate) {                navigator.vibrate(50);            }        }        // Quitar actividad        function quitarActividad() {            if (actividades.length > 0 && confirm('¿Quitar la última actividad registrada?')) {                actividades.pop();                guardarDatos();                actualizarInterfaz();                                if (navigator.vibrate) {                    navigator.vibrate([50, 50, 50]);                }            }        }        // Obtener actividades del mes actual        function getActividadesMesActual() {            const ahora = new Date();            return actividades.filter(a => a.mes === ahora.getMonth() && a.ano === ahora.getFullYear()).length;        }        // Obtener actividades de esta semana        function getActividadesSemanaActual() {            const ahora = new Date();            const inicioSemana = new Date(ahora);            inicioSemana.setDate(ahora.getDate() - ahora.getDay());            return actividades.filter(a => new Date(a.fecha) >= inicioSemana).length;        }        // Calcular racha actual        function getRachaActual() {            if (actividades.length === 0) return 0;                        const fechasUnicas = [...new Set(actividades.map(a => new Date(a.fecha).toDateString()))]                .sort((a, b) => new Date(a) - new Date(b));                        let racha = 1;            for (let i = 1; i < fechasUnicas.length; i++) {                const diferencia = (new Date(fechasUnicas[i]) - new Date(fechasUnicas[i-1])) / (1000 * 60 * 60 * 24);                if (diferencia <= 7) {                    racha++;                } else {                    racha = 1;                }            }                        // Verificar si la racha sigue activa            const ultimaActividad = new Date(actividades[actividades.length - 1].fecha);            const diasDesdeUltima = (new Date() - ultimaActividad) / (1000 * 60 * 60 * 24);                        return diasDesdeUltima <= 7 ? racha : 0;        }        // Actualizar interfaz        function actualizarInterfaz() {            const mesActual = getActividadesMesActual();            const semanaActual = getActividadesSemanaActual();            const rachaActual = getRachaActual();            const total = actividades.length;                        // Actualizar contador principal            document.getElementById('monthCounter').textContent = mesActual;                        // Mostrar/ocultar elementos según si hay actividades            const hayActividades = total > 0;            document.getElementById('quickStats').style.display = hayActividades ? 'grid' : 'none';            document.getElementById('btnQuitar').style.display = hayActividades ? 'inline-flex' : 'none';            document.getElementById('btnExport').style.display = hayActividades ? 'inline-flex' : 'none';            document.getElementById('btnClear').style.display = hayActividades ? 'inline-flex' : 'none';            document.getElementById('emptyState').style.display = hayActividades ? 'none' : 'block';                        // Actualizar stats rápidas            if (hayActividades) {                document.getElementById('statMonth').textContent = mesActual;                document.getElementById('statWeek').textContent = semanaActual;                document.getElementById('statStreak').textContent = rachaActual;                document.getElementById('statTotal').textContent = total;            }        }        // Toggle estadísticas        function toggleStats() {            mostrandoStats = !mostrandoStats;            const statsSection = document.getElementById('statsSection');            const buttonText = document.getElementById('statsButtonText');                        if (mostrandoStats) {                statsSection.style.display = 'block';                buttonText.textContent = 'Ocultar Estadísticas';                generarEstadisticasDetalladas();            } else {                statsSection.style.display = 'none';                buttonText.textContent = 'Ver Estadísticas';            }        }        // Generar estadísticas detalladas        function generarEstadisticasDetalladas() {            if (actividades.length === 0) return;                        // Estadísticas por mes            const statsPorMes = {};            actividades.forEach(a => {                const clave = meses[a.mes] + ' ' + a.ano;                statsPorMes[clave] = (statsPorMes[clave] || 0) + 1;            });                        // Estadísticas por día de la semana            const diasSemana = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];            const statsPorDia = Array(7).fill(0);            actividades.forEach(a => {                statsPorDia[a.dia]++;            });                        // Estadísticas por hora            const statsPorHora = Array(24).fill(0);            actividades.forEach(a => {                statsPorHora[a.hora]++;            });                        // Generar HTML de estadísticas            let html = '<div class="space-y-4">';                        // Por mes            html += '<div><h4 class="font-semibold text-white mb-2">📅 Por Mes:</h4>';            Object.entries(statsPorMes).sort((a, b) => b[1] - a[1]).slice(0, 5).forEach(([mes, count]) => {                html += '<div class="flex justify-between py-1"><span>' + mes + '</span><span class="font-semibold">' + count + '</span></div>';            });            html += '</div>';                        // Por día            html += '<div><h4 class="font-semibold text-white mb-2">📆 Por Día de la Semana:</h4>';            diasSemana.map((dia, index) => ({ dia, count: statsPorDia[index] }))                .filter(item => item.count > 0)                .sort((a, b) => b.count - a.count)                .forEach(item => {                    html += '<div class="flex justify-between py-1"><span>' + item.dia + '</span><span class="font-semibold">' + item.count + '</span></div>';                });            html += '</div>';                        // Por hora (top 5)            html += '<div><h4 class="font-semibold text-white mb-2">🕐 Horarios Más Frecuentes:</h4>';            statsPorHora.map((count, hora) => ({ hora: hora.toString().padStart(2, '0') + ':00', count }))                .filter(item => item.count > 0)                .sort((a, b) => b.count - a.count)                .slice(0, 5)                .forEach(item => {                    html += '<div class="flex justify-between py-1"><span>' + item.hora + '</span><span class="font-semibold">' + item.count + '</span></div>';                });            html += '</div>';                        html += '</div>';            document.getElementById('statsContent').innerHTML = html;        }        // Exportar datos        function exportarDatos() {            const datos = {                totalActividades: actividades.length,                actividades: actividades,                mesActual: getActividadesMesActual(),                semanaActual: getActividadesSemanaActual(),                rachaActual: getRachaActual(),                fechaExportacion: new Date().toISOString()            };                        const blob = new Blob([JSON.stringify(datos, null, 2)], { type: 'application/json' });            const url = URL.createObjectURL(blob);            const a = document.createElement('a');            a.href = url;            a.download = 'seguimiento-personal-' + new Date().toISOString().split('T')[0] + '.json';            a.click();            URL.revokeObjectURL(url);        }        // Limpiar datos        function limpiarDatos() {            if (confirm('¿Estás seguro de que quieres eliminar todos los datos?')) {                actividades = [];                guardarDatos();                actualizarInterfaz();                if (mostrandoStats) {                    toggleStats();                }            }        }        // Service Worker para funcionamiento offline        if ('serviceWorker' in navigator) {            window.addEventListener('load', function() {                const swCode = `                    const CACHE_NAME = 'seguimiento-personal-v1';                    const urlsToCache = [                        '/',                        'https://cdn.tailwindcss.com'                    ];                    self.addEventListener('install', function(event) {                        event.waitUntil(                            caches.open(CACHE_NAME)                                .then(function(cache) {                                    return cache.addAll(urlsToCache);                                })                        );                    });                    self.addEventListener('fetch', function(event) {                        event.respondWith(                            caches.match(event.request)                                .then(function(response) {                                    if (response) {                                        return response;                                    }                                    return fetch(event.request);                                })                        );                    });                `;                const blob = new Blob([swCode], { type: 'application/javascript' });                const swUrl = URL.createObjectURL(blob);                                navigator.serviceWorker.register(swUrl)                    .then(function(registration) {                        console.log('ServiceWorker registrado correctamente:', registration.scope);                    })                    .catch(function(error) {                        console.log('Error al registrar ServiceWorker:', error);                    });            });        }        // Inicializar app        window.addEventListener('load', cargarDatos);    </script></body></html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seguimiento Personal</title>
+    <meta name="description" content="Aplicación personal discreta para registrar y analizar tu actividad íntima">
+    <meta name="theme-color" content="#7c3aed">
+    
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" id="manifest-placeholder">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Seguimiento Personal">
+    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCIgdmlld0JveD0iMCAwIDE4MCAxODAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojZWM0ODk5O3N0b3Atb3BhY2l0eToxIiAvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6Izc5NTJiMztzdG9wLW9wYWNpdHk6MSIgLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCIgcng9IjQwIiBmaWxsPSJ1cmwoI2dyYWQpIi8+PGNpcmNsZSBjeD0iOTAiIGN5PSI5MCIgcj0iNDAiIGZpbGw9IndoaXRlIiBmaWxsLW9wYWNpdHk9IjAuMiIvPjx0ZXh0IHg9IjkwIiB5PSIxMDAiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSI0OCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj4+PC90ZXh0Pjwvc3ZnPg==">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            overscroll-behavior: none;
+            touch-action: manipulation;
+            font-family: system-ui, sans-serif;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #ec4899, #7952b3);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+        .counter-circle {
+            background: linear-gradient(135deg, #ec4899, #7952b3);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        .install-bounce {
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 20%, 53%, 80%, 100% { transform: translate3d(0,0,0); }
+            40%, 43% { transform: translate3d(0,-8px,0); }
+            70% { transform: translate3d(0,-4px,0); }
+            90% { transform: translate3d(0,-2px,0); }
+        }
+        .star-rating {
+            color: #fbbf24;
+        }
+        .star-empty {
+            color: #374151;
+        }
+        .modal {
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 min-h-screen">
+    
+    <!-- Install Banner -->
+    <div id="installBanner" class="bg-gradient-to-r from-green-500 to-blue-500 text-white p-4 text-center hidden">
+        <div class="flex items-center justify-center gap-3">
+            <span class="text-lg install-bounce">📱</span>
+            <p class="text-sm font-medium">¡Instala la app para un acceso más rápido y privado!</p>
+            <button id="installButton" class="bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg text-sm font-semibold transition-all">
+                Instalar App
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal para añadir actividad -->
+    <div id="addModal" class="hidden fixed inset-0 bg-black/50 modal flex items-center justify-center z-50 p-4">
+        <div class="bg-white/10 backdrop-blur-lg rounded-3xl p-6 border border-white/20 max-w-md w-full">
+            <h3 class="text-xl font-bold text-white mb-4 text-center">Nueva Actividad</h3>
+            
+            <div class="space-y-4">
+                <!-- Valoración -->
+                <div>
+                    <label class="text-purple-200 text-sm font-medium block mb-2">Valoración (0-10)</label>
+                    <div class="flex justify-center gap-1 mb-2">
+                        <div id="starRating" class="flex gap-1">
+                            <!-- Stars will be generated by JavaScript -->
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <span id="ratingValue" class="text-white font-bold text-lg">0</span>
+                        <span class="text-purple-200">/10</span>
+                    </div>
+                </div>
+
+                <!-- Nombre de la persona (opcional) -->
+                <div>
+                    <label class="text-purple-200 text-sm font-medium block mb-2">Persona (opcional)</label>
+                    <input 
+                        type="text" 
+                        id="personName" 
+                        placeholder="Nombre o iniciales..." 
+                        class="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-purple-300 focus:outline-none focus:border-purple-400"
+                    >
+                </div>
+
+                <!-- Botones -->
+                <div class="flex gap-3 pt-4">
+                    <button onclick="cancelAdd()" class="flex-1 bg-gray-600 hover:bg-gray-700 text-white py-3 rounded-xl transition-all">
+                        Cancelar
+                    </button>
+                    <button onclick="confirmAdd()" class="flex-1 btn-primary text-white py-3 rounded-xl">
+                        Añadir
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para rankings -->
+    <div id="rankingModal" class="hidden fixed inset-0 bg-black/50 modal flex items-center justify-center z-50 p-4">
+        <div class="bg-white/10 backdrop-blur-lg rounded-3xl p-6 border border-white/20 max-w-lg w-full max-h-[80vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold text-white">Rankings</h3>
+                <button onclick="closeRankingModal()" class="text-white hover:text-purple-300">✕</button>
+            </div>
+            
+            <div class="space-y-4">
+                <!-- Tabs -->
+                <div class="flex gap-2">
+                    <button onclick="showTopRanking()" id="topTab" class="flex-1 py-2 px-4 rounded-lg bg-purple-600 text-white text-sm">
+                        🏆 Top 10
+                    </button>
+                    <button onclick="showWorstRanking()" id="worstTab" class="flex-1 py-2 px-4 rounded-lg bg-white/20 text-purple-200 text-sm">
+                        💔 Bottom 10
+                    </button>
+                </div>
+
+                <!-- Ranking content -->
+                <div id="rankingContent" class="space-y-3">
+                    <!-- Content will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="app">
+        <div class="container mx-auto px-4 py-8">
+            <div class="max-w-2xl mx-auto">
+                
+                <!-- Header -->
+                <div class="text-center mb-8">
+                    <h1 class="text-4xl font-bold text-white mb-2">Seguimiento Personal</h1>
+                    <p class="text-purple-200">Registra y analiza tu actividad íntima</p>
+                </div>
+
+                <!-- Main Card -->
+                <div class="bg-white/10 backdrop-blur-lg rounded-3xl p-8 border border-white/20 shadow-2xl mb-6">
+                    
+                    <!-- Counter -->
+                    <div class="text-center mb-8">
+                        <div class="mb-3">
+                            <h3 class="text-lg text-purple-200 mb-1">Este Mes</h3>
+                            <p class="text-sm text-purple-300" id="currentMonth"></p>
+                        </div>
+                        <div class="counter-circle w-32 h-32 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-4xl font-bold text-white" id="monthCounter">0</span>
+                        </div>
+                        <h2 class="text-2xl font-semibold text-white mb-2">Total de Actividades</h2>
+                        <p class="text-purple-200">Toca el botón para añadir una nueva</p>
+                        
+                        <!-- Promedio del mes -->
+                        <div id="monthAverage" class="mt-4 hidden">
+                            <div class="flex items-center justify-center gap-2">
+                                <span class="text-purple-200">Promedio del mes:</span>
+                                <div class="flex" id="monthAverageStars"></div>
+                                <span class="text-white font-semibold" id="monthAverageValue">0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Stats -->
+                    <div id="quickStats" class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8" style="display: none;">
+                        <div class="bg-white/10 rounded-xl p-4 text-center">
+                            <div class="text-2xl font-bold text-white" id="statMonth">0</div>
+                            <div class="text-purple-200 text-sm">Este Mes</div>
+                        </div>
+                        <div class="bg-white/10 rounded-xl p-4 text-center">
+                            <div class="text-2xl font-bold text-white" id="statWeek">0</div>
+                            <div class="text-purple-200 text-sm">Esta Semana</div>
+                        </div>
+                        <div class="bg-white/10 rounded-xl p-4 text-center">
+                            <div class="text-2xl font-bold text-white" id="statStreak">0</div>
+                            <div class="text-purple-200 text-sm">Racha Actual</div>
+                        </div>
+                        <div class="bg-white/10 rounded-xl p-4 text-center">
+                            <div class="text-2xl font-bold text-white" id="statTotal">0</div>
+                            <div class="text-purple-200 text-sm">Total</div>
+                        </div>
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="flex gap-4 justify-center mb-8">
+                        <button onclick="showAddModal()" class="btn-primary text-white font-semibold py-4 px-8 rounded-2xl shadow-lg">
+                            + Añadir Actividad
+                        </button>
+                        <button onclick="quitarActividad()" id="btnQuitar" class="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-semibold py-4 px-8 rounded-2xl shadow-lg" style="display: none;">
+                            - Quitar Última
+                        </button>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex flex-wrap gap-4 justify-center">
+                        <button onclick="toggleStats()" class="bg-white/20 hover:bg-white/30 text-white py-3 px-6 rounded-xl transition-all">
+                            📊 <span id="statsButtonText">Ver Estadísticas</span>
+                        </button>
+                        <button onclick="showRankingModal()" id="btnRanking" class="bg-purple-600 hover:bg-purple-700 text-white py-3 px-6 rounded-xl transition-all" style="display: none;">
+                            🏆 Rankings
+                        </button>
+                        <button onclick="exportarDatos()" id="btnExport" class="bg-white/20 hover:bg-white/30 text-white py-3 px-6 rounded-xl transition-all" style="display: none;">
+                            📥 Exportar
+                        </button>
+                        <button onclick="limpiarDatos()" id="btnClear" class="bg-red-500/20 hover:bg-red-500/30 text-white py-3 px-6 rounded-xl transition-all" style="display: none;">
+                            🗑️ Limpiar Datos
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Empty State -->
+                <div id="emptyState" class="text-center py-8">
+                    <p class="text-purple-200 text-lg">¡Comienza a registrar tu actividad para ver estadísticas!</p>
+                </div>
+
+                <!-- Stats -->
+                <div id="statsSection" class="space-y-6" style="display: none;">
+                    <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20">
+                        <h3 class="text-xl font-semibold text-white mb-4">📈 Estadísticas Detalladas</h3>
+                        <div id="statsContent" class="text-purple-200">
+                            <!-- Stats content will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Configurar PWA Manifest
+        const manifestData = {
+            "name": "Seguimiento Personal",
+            "short_name": "Seguimiento",
+            "description": "Aplicación personal discreta para registrar y analizar tu actividad íntima",
+            "start_url": "./",
+            "display": "standalone",
+            "background_color": "#1e1b4b",
+            "theme_color": "#7c3aed",
+            "orientation": "portrait",
+            "categories": ["lifestyle", "health"],
+            "icons": [
+                {
+                    "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgdmlld0JveD0iMCAwIDE5MiAxOTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojZWM0ODk5O3N0b3Atb3BhY2l0eToxIiAvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6Izc5NTJiMztzdG9wLW9wYWNpdHk6MSIgLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgcng9IjQwIiBmaWxsPSJ1cmwoI2dyYWQpIi8+PGNpcmNsZSBjeD0iOTYiIGN5PSI5NiIgcj0iNDAiIGZpbGw9IndoaXRlIiBmaWxsLW9wYWNpdHk9IjAuMiIvPjx0ZXh0IHg9Ijk2IiB5PSIxMTAiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSI1NiIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj4rPC90ZXh0Pjwvc3ZnPg==",
+                    "sizes": "192x192",
+                    "type": "image/svg+xml",
+                    "purpose": "any maskable"
+                },
+                {
+                    "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgdmlld0JveD0iMCAwIDUxMiA1MTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojZWM0ODk5O3N0b3Atb3BhY2l0eToxIiAvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6Izc5NTJiMztzdG9wLW9wYWNpdHk6MSIgLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcng9IjEwMCIgZmlsbD0idXJsKCNncmFkKSIvPjxjaXJjbGUgY3g9IjI1NiIgY3k9IjI1NiIgcj0iMTAwIiBmaWxsPSJ3aGl0ZSIgZmlsbC1vcGFjaXR5PSIwLjIiLz48dGV4dCB4PSIyNTYiIHk9IjI5MCIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0MCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj4+PC90ZXh0Pjwvc3ZnPg==",
+                    "sizes": "512x512",
+                    "type": "image/svg+xml",
+                    "purpose": "any"
+                }
+            ]
+        };
+
+        // Crear y enlazar el manifest
+        const manifestBlob = new Blob([JSON.stringify(manifestData)], { type: 'application/json' });
+        const manifestURL = URL.createObjectURL(manifestBlob);
+        document.getElementById('manifest-placeholder').href = manifestURL;
+
+        // Variables globales
+        let actividades = [];
+        let mostrandoStats = false;
+        let deferredPrompt = null;
+        let currentRating = 0;
+        
+        // Meses en español
+        const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+                      'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+
+        // PWA Install functionality
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById('installBanner').classList.remove('hidden');
+        });
+
+        document.getElementById('installButton').addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                if (outcome === 'accepted') {
+                    document.getElementById('installBanner').classList.add('hidden');
+                }
+                deferredPrompt = null;
+            }
+        });
+
+        window.addEventListener('appinstalled', () => {
+            document.getElementById('installBanner').classList.add('hidden');
+        });
+
+        // Initialize star rating
+        function initStarRating() {
+            const starContainer = document.getElementById('starRating');
+            starContainer.innerHTML = '';
+            
+            for (let i = 1; i <= 10; i++) {
+                const star = document.createElement('button');
+                star.innerHTML = '★';
+                star.className = 'text-2xl star-empty hover:text-yellow-400 transition-colors';
+                star.onclick = () => setRating(i);
+                starContainer.appendChild(star);
+            }
+        }
+
+        function setRating(rating) {
+            currentRating = rating;
+            const stars = document.querySelectorAll('#starRating button');
+            const valueSpan = document.getElementById('ratingValue');
+            
+            stars.forEach((star, index) => {
+                if (index < rating) {
+                    star.className = 'text-2xl star-rating hover:text-yellow-400 transition-colors';
+                } else {
+                    star.className = 'text-2xl star-empty hover:text-yellow-400 transition-colors';
+                }
+            });
+            
+            valueSpan.textContent = rating;
+        }
+
+        function getStarDisplay(rating) {
+            let stars = '';
+            for (let i = 1; i <= 10; i++) {
+                stars += i <= rating ? '★' : '☆';
+            }
+            return stars;
+        }
+
+        function showAddModal() {
+            document.getElementById('addModal').classList.remove('hidden');
+            initStarRating();
+            setRating(0);
+            document.getElementById('personName').value = '';
+        }
+
+        function cancelAdd() {
+            document.getElementById('addModal').classList.add('hidden');
+        }
+
+        function confirmAdd() {
+            const ahora = new Date();
+            const personName = document.getElementById('personName').value.trim();
+            
+            const nuevaActividad = {
+                id: Date.now(),
+                fecha: ahora.toISOString(),
+                dia: ahora.getDay(),
+                hora: ahora.getHours(),
+                mes: ahora.getMonth(),
+                ano: ahora.getFullYear(),
+                valoracion: currentRating,
+                persona: personName || null
+            };
+            
+            actividades.push(nuevaActividad);
+            guardarDatos();
+            actualizarInterfaz();
+            document.getElementById('addModal').classList.add('hidden');
+            
+            // Vibración si está disponible
+            if (navigator.vibrate) {
+                navigator.vibrate(50);
+            }
+        }
+
+        function showRankingModal() {
+            document.getElementById('rankingModal').classList.remove('hidden');
+            showTopRanking();
+        }
+
+        function closeRankingModal() {
+            document.getElementById('rankingModal').classList.add('hidden');
+        }
+
+        function showTopRanking() {
+            // Update tab styles
+            document.getElementById('topTab').className = 'flex-1 py-2 px-4 rounded-lg bg-purple-600 text-white text-sm';
+            document.getElementById('worstTab').className = 'flex-1 py-2 px-4 rounded-lg bg-white/20 text-purple-200 text-sm';
+            
+            const sorted = [...actividades].sort((a, b) => b.valoracion - a.valoracion);
+            const top10 = sorted.slice(0, 10);
+            
+            let html = '';
+            if (top10.length === 0) {
+                html = '<p class="text-purple-200 text-center">No hay datos suficientes</p>';
+            } else {
+                top10.forEach((actividad, index) => {
+                    const fecha = new Date(actividad.fecha).toLocaleDateString('es-ES', {
+                        day: 'numeric',
+                        month: 'short',
+                        year: 'numeric'
+                    });
+                    
+                    html += `
+                        <div class="bg-white/10 rounded-lg p-4">
+                            <div class="flex justify-between items-start">
+                                <div class="flex-1">
+                                    <div class="flex items-center gap-2 mb-1">
+                                        <span class="text-lg font-bold text-white">#${index + 1}</span>
+                                        <span class="text-2xl">${index === 0 ? '🏆' : index === 1 ? '🥈' : index === 2 ? '🥉' : '⭐'}</span>
+                                    </div>
+                                    <div class="text-yellow-400 text-lg mb-1">${getStarDisplay(actividad.valoracion)}</div>
+                                    <div class="text-purple-200 text-sm">${fecha}</div>
+                                    ${actividad.persona ? `<div class="text-purple-300 text-sm">Con: ${actividad.persona}</div>` : ''}
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-2xl font-bold text-white">${actividad.valoracion}</div>
+                                    <div class="text-purple-200 text-xs">/ 10</div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+            
+            document.getElementById('rankingContent').innerHTML = html;
+        }
+
+        function showWorstRanking() {
+            // Update tab styles
+            document.getElementById('topTab').className = 'flex-1 py-2 px-4 rounded-lg bg-white/20 text-purple-200 text-sm';
+            document.getElementById('worstTab').className = 'flex-1 py-2 px-4 rounded-lg bg-purple-600 text-white text-sm';
+            
+            const sorted = [...actividades].sort((a, b) => a.valoracion - b.valoracion);
+            const bottom10 = sorted.slice(0, 10);
+            
+            let html = '';
+            if (bottom10.length === 0) {
+                html = '<p class="text-purple-200 text-center">No hay datos suficientes</p>';
+            } else {
+                bottom10.forEach((actividad, index) => {
+                    const fecha = new Date(actividad.fecha).toLocaleDateString('es-ES', {
+                        day: 'numeric',
+                        month: 'short',
+                        year: 'numeric'
+                    });
+                    
+                    html += `
+                        <div class="bg-white/10 rounded-lg p-4">
+                            <div class="flex justify-between items-start">
+                                <div class="flex-1">
+                                    <div class="flex items-center gap-2 mb-1">
+                                        <span class="text-lg font-bold text-white">#${index + 1}</span>
+                                        <span class="text-2xl">${index === 0 ? '💔' : '😔'}</span>
+                                    </div>
+                                    <div class="text-yellow-400 text-lg mb-1">${getStarDisplay(actividad.valoracion)}</div>
+                                    <div class="text-purple-200 text-sm">${fecha}</div>
+                                    ${actividad.persona ? `<div class="text-purple-300 text-sm">Con: ${actividad.persona}</div>` : ''}
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-2xl font-bold text-white">${actividad.valoracion}</div>
+                                    <div class="text-purple-200 text-xs">/ 10</div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+            
+            document.getElementById('rankingContent').innerHTML = html;
+        }
+
+        // Cargar datos al iniciar
+        function cargarDatos() {
+            const datosGuardados = localStorage.getItem('seguimiento-personal-datos');
+            if (datosGuardados) {
+                actividades = JSON.parse(datosGuardados);
+                // Migrar datos antiguos sin valoración
+                actividades = actividades.map(a => {
+                    if (a.valoracion === undefined) {
+                        a.valoracion = 5; // Valoración por defecto para datos antiguos
+                        a.persona = null;
+                    }
+                    return a;
+                });
+            }
+            actualizarInterfaz();
+            actualizarMesActual();
+        }
+
+        // Guardar datos
+        function guardarDatos() {
+            localStorage.setItem('seguimiento-personal-datos', JSON.stringify(actividades));
+        }
+
+        // Actualizar mes actual
+        function actualizarMesActual() {
+            const ahora = new Date();
+            document.getElementById('currentMonth').textContent = meses[ahora.getMonth()] + ' ' + ahora.getFullYear();
+        }
+
+        // Quitar actividad
+        function quitarActividad() {
+            if (actividades.length > 0 && confirm('¿Quitar la última actividad registrada?')) {
+                actividades.pop();
+                guardarDatos();
+                actualizarInterfaz();
+                
+                if (navigator.vibrate) {
+                    navigator.vibrate([50, 50, 50]);
+                }
+            }
+        }
+
+        // Obtener actividades del mes actual
+        function getActividadesMesActual() {
+            const ahora = new Date();
+            return actividades.filter(a => 
+                a.mes === ahora.getMonth() && a.ano === ahora.getFullYear()
+            );
+        }
+
+        // Obtener actividades de esta semana
+        function getActividadesSemanaActual() {
+            const ahora = new Date();
+            const inicioSemana = new Date(ahora);
+            inicioSemana.setDate(ahora.getDate() - ahora.getDay());
+            return actividades.filter(a => new Date(a.fecha) >= inicioSemana).length;
+        }
+
+        // Calcular promedio del mes
+        function getPromedioMes() {
+            const actividadesMes = getActividadesMesActual();
+            if (actividadesMes.length === 0) return 0;
+            
+            const suma = actividadesMes.reduce((acc, a) => acc + a.valoracion, 0);
+            return Math.round((suma / actividadesMes.length) * 10) / 10;
+        }
+
+        // Calcular racha actual
+        function getRachaActual() {
+            if (actividades.length === 0) return 0;
+            
+            const fechasUnicas = [...new Set(actividades.map(a => new Date(a.fecha).toDateString()))]
+                .sort((a, b) => new Date(a) - new Date(b));
+            
+            let racha = 1;
+            for (let i = 1; i < fechasUnicas.length; i++) {
+                const diferencia = (new Date(fechasUnicas[i]) - new Date(fechasUnicas[i-1])) / (1000 * 60 * 60 * 24);
+                if (diferencia <= 7) {
+                    racha++;
+                } else {
+                    racha = 1;
+                }
+            }
+            
+            // Verificar si la racha sigue activa
+            const ultimaActividad = new Date(actividades[actividades.length - 1].fecha);
+            const diasDesdeUltima = (new Date() - ultimaActividad) / (1000 * 60 * 60 * 24);
+            
+            return diasDesdeUltima <= 7 ? racha : 0;
+        }
+
+        // Actualizar interfaz
+        function actualizarInterfaz() {
+            const actividadesMes = getActividadesMesActual();
+            const mesActual = actividadesMes.length;
+            const semanaActual = getActividadesSemanaActual();
+            const rachaActual = getRachaActual();
+            const total = actividades.length;
+            const promedioMes = getPromedioMes();
+            
+            // Actualizar contador principal
+            document.getElementById('monthCounter').textContent = mesActual;
+            
+            // Mostrar promedio del mes
+            const monthAverageDiv = document.getElementById('monthAverage');
+            if (mesActual > 0) {
+                monthAverageDiv.classList.remove('hidden');
+                const starsContainer = document.getElementById('monthAverageStars');
+                starsContainer.innerHTML = '';
+                
+                for (let i = 1; i <= 10; i++) {
+                    const star = document.createElement('span');
+                    star.innerHTML = i <= Math.round(promedioMes) ? '★' : '☆';
+                    star.className = i <= Math.round(promedioMes) ? 'text-yellow-400' : 'text-gray-400';
+                    starsContainer.appendChild(star);
+                }
+                
+                document.getElementById('monthAverageValue').textContent = promedioMes;
+            } else {
+                monthAverageDiv.classList.add('hidden');
+            }
+            
+            // Mostrar/ocultar elementos según si hay actividades
+            const hayActividades = total > 0;
+            document.getElementById('quickStats').style.display = hayActividades ? 'grid' : 'none';
+            document.getElementById('btnQuitar').style.display = hayActividades ? 'inline-flex' : 'none';
+            document.getElementById('btnExport').style.display = hayActividades ? 'inline-flex' : 'none';
+            document.getElementById('btnClear').style.display = hayActividades ? 'inline-flex' : 'none';
+            document.getElementById('btnRanking').style.display = hayActividades ? 'inline-flex' : 'none';
+            document.getElementById('emptyState').style.display = hayActividades ? 'none' : 'block';
+            
+            // Actualizar stats rápidas
+            if (hayActividades) {
+                document.getElementById('statMonth').textContent = mesActual;
+                document.getElementById('statWeek').textContent = semanaActual;
+                document.getElementById('statStreak').textContent = rachaActual;
+                document.getElementById('statTotal').textContent = total;
+            }
+        }
+
+        // Toggle estadísticas
+        function toggleStats() {
+            mostrandoStats = !mostrandoStats;
+            const statsSection = document.getElementById('statsSection');
+            const buttonText = document.getElementById('statsButtonText');
+            
+            if (mostrandoStats) {
+                statsSection.style.display = 'block';
+                buttonText.textContent = 'Ocultar Estadísticas';
+                generarEstadisticasDetalladas();
+            } else {
+                statsSection.style.display = 'none';
+                buttonText.textContent = 'Ver Estadísticas';
+            }
+        }
+
+        // Generar estadísticas detalladas
+        function generarEstadisticasDetalladas() {
+            if (actividades.length === 0) return;
+            
+            // Estadísticas por mes
+            const statsPorMes = {};
+            actividades.forEach(a => {
+                const clave = meses[a.mes] + ' ' + a.ano;
+                if (!statsPorMes[clave]) {
+                    statsPorMes[clave] = { count: 0, suma: 0 };
+                }
+                statsPorMes[clave].count++;
+                statsPorMes[clave].suma += a.valoracion;
+            });
+            
+            // Estadísticas por día de la semana
+            const diasSemana = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+            const statsPorDia = Array(7).fill().map(() => ({ count: 0, suma: 0 }));
+            actividades.forEach(a => {
+                statsPorDia[a.dia].count++;
+                statsPorDia[a.dia].suma += a.valoracion;
+            });
+            
+            // Estadísticas por hora
+            const statsPorHora = Array(24).fill().map(() => ({ count: 0, suma: 0 }));
+            actividades.forEach(a => {
+                statsPorHora[a.hora].count++;
+                statsPorHora[a.hora].suma += a.valoracion;
+            });
+
+            // Estadísticas por persona
+            const statsPorPersona = {};
+            actividades.forEach(a => {
+                if (a.persona) {
+                    if (!statsPorPersona[a.persona]) {
+                        statsPorPersona[a.persona] = { count: 0, suma: 0 };
+                    }
+                    statsPorPersona[a.persona].count++;
+                    statsPorPersona[a.persona].suma += a.valoracion;
+                }
+            });
+            
+            // Generar HTML de estadísticas
+            let html = '<div class="space-y-6">';
+            
+            // Estadísticas generales
+            const promedioGeneral = Math.round((actividades.reduce((acc, a) => acc + a.valoracion, 0) / actividades.length) * 10) / 10;
+            html += `
+                <div class="bg-white/10 rounded-lg p-4">
+                    <h4 class="font-semibold text-white mb-3">📊 Resumen General</h4>
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-white">${promedioGeneral}</div>
+                            <div class="text-purple-200">Promedio Total</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-white">${actividades.length}</div>
+                            <div class="text-purple-200">Total Registrado</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Por mes
+            html += '<div><h4 class="font-semibold text-white mb-2">📅 Por Mes:</h4>';
+            Object.entries(statsPorMes)
+                .sort((a, b) => b[1].count - a[1].count)
+                .slice(0, 5)
+                .forEach(([mes, data]) => {
+                    const promedio = Math.round((data.suma / data.count) * 10) / 10;
+                    html += `
+                        <div class="flex justify-between items-center py-2 px-3 bg-white/5 rounded mb-1">
+                            <span>${mes}</span>
+                            <div class="text-right">
+                                <div class="text-sm font-semibold">${data.count} veces</div>
+                                <div class="text-xs text-purple-300">★ ${promedio}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+            html += '</div>';
+            
+            // Por día
+            html += '<div><h4 class="font-semibold text-white mb-2">📆 Por Día de la Semana:</h4>';
+            diasSemana.map((dia, index) => ({ dia, ...statsPorDia[index] }))
+                .filter(item => item.count > 0)
+                .sort((a, b) => b.count - a.count)
+                .forEach(item => {
+                    const promedio = Math.round((item.suma / item.count) * 10) / 10;
+                    html += `
+                        <div class="flex justify-between items-center py-2 px-3 bg-white/5 rounded mb-1">
+                            <span>${item.dia}</span>
+                            <div class="text-right">
+                                <div class="text-sm font-semibold">${item.count} veces</div>
+                                <div class="text-xs text-purple-300">★ ${promedio}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+            html += '</div>';
+            
+            // Por hora (top 5)
+            html += '<div><h4 class="font-semibold text-white mb-2">🕐 Horarios Más Frecuentes:</h4>';
+            statsPorHora.map((data, hora) => ({ 
+                    hora: hora.toString().padStart(2, '0') + ':00', 
+                    ...data 
+                }))
+                .filter(item => item.count > 0)
+                .sort((a, b) => b.count - a.count)
+                .slice(0, 5)
+                .forEach(item => {
+                    const promedio = Math.round((item.suma / item.count) * 10) / 10;
+                    html += `
+                        <div class="flex justify-between items-center py-2 px-3 bg-white/5 rounded mb-1">
+                            <span>${item.hora}</span>
+                            <div class="text-right">
+                                <div class="text-sm font-semibold">${item.count} veces</div>
+                                <div class="text-xs text-purple-300">★ ${promedio}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+            html += '</div>';
+
+            // Por persona (si hay datos)
+            if (Object.keys(statsPorPersona).length > 0) {
+                html += '<div><h4 class="font-semibold text-white mb-2">👥 Por Persona:</h4>';
+                Object.entries(statsPorPersona)
+                    .sort((a, b) => b[1].count - a[1].count)
+                    .slice(0, 5)
+                    .forEach(([persona, data]) => {
+                        const promedio = Math.round((data.suma / data.count) * 10) / 10;
+                        html += `
+                            <div class="flex justify-between items-center py-2 px-3 bg-white/5 rounded mb-1">
+                                <span>${persona}</span>
+                                <div class="text-right">
+                                    <div class="text-sm font-semibold">${data.count} veces</div>
+                                    <div class="text-xs text-purple-300">★ ${promedio}</div>
+                                </div>
+                            </div>
+                        `;
+                    });
+                html += '</div>';
+            }
+            
+            html += '</div>';
+            document.getElementById('statsContent').innerHTML = html;
+        }
+
+        // Exportar datos
+        function exportarDatos() {
+            const datos = {
+                totalActividades: actividades.length,
+                actividades: actividades,
+                mesActual: getActividadesMesActual().length,
+                semanaActual: getActividadesSemanaActual(),
+                rachaActual: getRachaActual(),
+                promedioGeneral: actividades.length > 0 ? Math.round((actividades.reduce((acc, a) => acc + a.valoracion, 0) / actividades.length) * 10) / 10 : 0,
+                fechaExportacion: new Date().toISOString()
+            };
+            
+            const blob = new Blob([JSON.stringify(datos, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'seguimiento-personal-' + new Date().toISOString().split('T')[0] + '.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Limpiar datos
+        function limpiarDatos() {
+            if (confirm('¿Estás seguro de que quieres eliminar todos los datos?')) {
+                actividades = [];
+                guardarDatos();
+                actualizarInterfaz();
+                if (mostrandoStats) {
+                    toggleStats();
+                }
+            }
+        }
+
+        // Service Worker para funcionamiento offline
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                const swCode = `
+                    const CACHE_NAME = 'seguimiento-personal-v2';
+                    const urlsToCache = [
+                        '/',
+                        'https://cdn.tailwindcss.com'
+                    ];
+
+                    self.addEventListener('install', function(event) {
+                        event.waitUntil(
+                            caches.open(CACHE_NAME)
+                                .then(function(cache) {
+                                    return cache.addAll(urlsToCache);
+                                })
+                        );
+                    });
+
+                    self.addEventListener('fetch', function(event) {
+                        event.respondWith(
+                            caches.match(event.request)
+                                .then(function(response) {
+                                    if (response) {
+                                        return response;
+                                    }
+                                    return fetch(event.request);
+                                })
+                        );
+                    });
+                `;
+
+                const blob = new Blob([swCode], { type: 'application/javascript' });
+                const swUrl = URL.createObjectURL(blob);
+                
+                navigator.serviceWorker.register(swUrl)
+                    .then(function(registration) {
+                        console.log('ServiceWorker registrado correctamente:', registration.scope);
+                    })
+                    .catch(function(error) {
+                        console.log('Error al registrar ServiceWorker:', error);
+                    });
+            });
+        }
+
+        // Inicializar app
+        window.addEventListener('load', cargarDatos);
+    </script>
+</body>
+</html>
