@@ -51,6 +51,19 @@
         .modal {
             backdrop-filter: blur(10px);
         }
+        .notification {
+            animation: slideInDown 0.5s ease-out;
+        }
+        @keyframes slideInDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
     </style>
 </head>
 <body class="bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 min-h-screen">
@@ -63,6 +76,19 @@
             <button id="installButton" class="bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg text-sm font-semibold transition-all">
                 Instalar App
             </button>
+        </div>
+    </div>
+
+    <!-- Notification Banner -->
+    <div id="notificationBanner" class="hidden fixed top-4 left-4 right-4 z-50">
+        <div class="bg-green-500 text-white p-4 rounded-lg shadow-lg notification max-w-md mx-auto">
+            <div class="flex items-center gap-3">
+                <span class="text-2xl">✅</span>
+                <div>
+                    <p class="font-semibold" id="notificationTitle">Actividad registrada</p>
+                    <p class="text-sm opacity-90" id="notificationText"></p>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -79,6 +105,7 @@
                         <input 
                             type="date" 
                             id="activityDate" 
+                            required
                             class="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-white focus:outline-none focus:border-purple-400"
                         >
                     </div>
@@ -87,6 +114,7 @@
                         <input 
                             type="time" 
                             id="activityTime" 
+                            required
                             class="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-white focus:outline-none focus:border-purple-400"
                         >
                     </div>
@@ -271,7 +299,7 @@
             "categories": ["lifestyle", "health"],
             "icons": [
                 {
-                    "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgdmlld0JveD0iMCAwIDE5MiAxOTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojZWM0ODk5O3N0b3Atb3BhY2l0eToxIiAvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6Izc5NTJiMztzdG9wLW9wYWNpdHk6MSIgLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgcng9IjQwIiBmaWxsPSJ1cmwoI2dyYWQpIi8+PGNpcmNsZSBjeD0iOTYiIGN5PSI5NiIgcj0iNDAiIGZpbGw9IndoaXRlIiBmaWxsLW9wYWNpdHk9IjAuMiIvPjx0ZXh0IHg9Ijk2IiB5PSIxMTAiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSI1NiIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj4rPC90ZXh0Pjwvc3ZnPg==",
+                    "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgdmlld0JveD0iMCAwIDE5MiAxOTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojZWM0ODk5O3N0b3Atb3BhY2l0eToxIiAvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6Izc5NTJiMztzdG9wLW9wYWNpdHk6MSIgLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgcng9IjQwIiBmaWxsPSJ1cmwoI2dyYWQpIi8+PGNpcmNsZSBjeD0iOTYiIGN5PSI5NiIgcj0iNDAiIGZpbGw9IndoaXRlIiBmaWxsLW9wYWNpdHk9IjAuMiIvPjx0ZXh0IHg9Ijk2IiB5PSIxMTAiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSI1NiIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj4+PC90ZXh0Pjwvc3ZnPg==",
                     "sizes": "192x192",
                     "type": "image/svg+xml",
                     "purpose": "any maskable"
@@ -299,6 +327,9 @@
         // Meses en español
         const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
                       'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+
+        // Días de la semana en español
+        const diasSemana = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
 
         // PWA Install functionality
         window.addEventListener('beforeinstallprompt', (e) => {
@@ -360,36 +391,46 @@
             return stars;
         }
 
+        // Función para establecer fecha y hora actuales por defecto
+        function setDefaultDateTime() {
+            const now = new Date();
+            const dateString = now.getFullYear() + '-' + 
+                              String(now.getMonth() + 1).padStart(2, '0') + '-' + 
+                              String(now.getDate()).padStart(2, '0');
+            const timeString = String(now.getHours()).padStart(2, '0') + ':' + 
+                              String(now.getMinutes()).padStart(2, '0');
+            
+            document.getElementById('activityDate').value = dateString;
+            document.getElementById('activityTime').value = timeString;
+        }
+
         function showAddModal() {
             document.getElementById('addModal').classList.remove('hidden');
             initStarRating();
             setRating(0);
             document.getElementById('personName').value = '';
+            setDefaultDateTime(); // 🆕 Establecer fecha y hora actual por defecto
         }
 
         function cancelAdd() {
             document.getElementById('addModal').classList.add('hidden');
-        }
-
-        function confirmAdd() {
-            const ahora = new Date();
-            const personName = document.getElementById('personName').value.trim();
             
-            const nuevaActividad = {
-                id: Date.now(),
-                fecha: ahora.toISOString(),
-                dia: ahora.getDay(),
-                hora: ahora.getHours(),
-                mes: ahora.getMonth(),
-                ano: ahora.getFullYear(),
-                valoracion: currentRating,
-                persona: personName || null
-            };
+            // 🆕 Mostrar notificación de confirmación con fecha
+            const fechaFormateada = fechaCompleta.toLocaleDateString('es-ES', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            const horaFormateada = fechaCompleta.toLocaleTimeString('es-ES', {
+                hour: '2-digit',
+                minute: '2-digit'
+            });
             
-            actividades.push(nuevaActividad);
-            guardarDatos();
-            actualizarInterfaz();
-            document.getElementById('addModal').classList.add('hidden');
+            showNotification(
+                'Actividad registrada',
+                `${fechaFormateada} a las ${horaFormateada}`
+            );
             
             // Vibración si está disponible
             if (navigator.vibrate) {
@@ -507,6 +548,9 @@
                     }
                     return a;
                 });
+                
+                // 🆕 Ordenar actividades por fecha (más recientes primero)
+                actividades.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
             }
             actualizarInterfaz();
             actualizarMesActual();
@@ -523,10 +567,15 @@
             document.getElementById('currentMonth').textContent = meses[ahora.getMonth()] + ' ' + ahora.getFullYear();
         }
 
-        // Quitar actividad
+        // Quitar actividad (ahora quita la más reciente por fecha, no por orden de adición)
         function quitarActividad() {
             if (actividades.length > 0 && confirm('¿Quitar la última actividad registrada?')) {
-                actividades.pop();
+                // 🆕 Encontrar y eliminar la actividad más reciente por fecha
+                const masReciente = actividades.reduce((mas, actual) => 
+                    new Date(actual.fecha) > new Date(mas.fecha) ? actual : mas
+                );
+                
+                actividades = actividades.filter(a => a.id !== masReciente.id);
                 guardarDatos();
                 actualizarInterfaz();
                 
@@ -680,7 +729,7 @@
             });
             
             // Estadísticas por día de la semana
-            const diasSemana = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+            const diasSemanaLista = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
             const statsPorDia = Array(7).fill().map(() => ({ count: 0, suma: 0 }));
             actividades.forEach(a => {
                 statsPorDia[a.dia].count++;
@@ -748,7 +797,7 @@
             
             // Por día
             html += '<div><h4 class="font-semibold text-white mb-2">📆 Por Día de la Semana:</h4>';
-            diasSemana.map((dia, index) => ({ dia, ...statsPorDia[index] }))
+            diasSemanaLista.map((dia, index) => ({ dia, ...statsPorDia[index] }))
                 .filter(item => item.count > 0)
                 .sort((a, b) => b.count - a.count)
                 .forEach(item => {
@@ -850,7 +899,7 @@
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function() {
                 const swCode = `
-                    const CACHE_NAME = 'seguimiento-personal-v2';
+                    const CACHE_NAME = 'seguimiento-personal-v3';
                     const urlsToCache = [
                         '/',
                         'https://cdn.tailwindcss.com'
@@ -895,4 +944,60 @@
         window.addEventListener('load', cargarDatos);
     </script>
 </body>
-</html>
+</html>d('hidden');
+        }
+
+        // 🆕 Función para mostrar notificación
+        function showNotification(title, text) {
+            const banner = document.getElementById('notificationBanner');
+            document.getElementById('notificationTitle').textContent = title;
+            document.getElementById('notificationText').textContent = text;
+            
+            banner.classList.remove('hidden');
+            
+            // Ocultar después de 3 segundos
+            setTimeout(() => {
+                banner.classList.add('hidden');
+            }, 3000);
+        }
+
+        function confirmAdd() {
+            // 🆕 Obtener fecha y hora de los campos
+            const selectedDate = document.getElementById('activityDate').value;
+            const selectedTime = document.getElementById('activityTime').value;
+            const personName = document.getElementById('personName').value.trim();
+            
+            // 🆕 Validación: fecha y hora son obligatorias
+            if (!selectedDate || !selectedTime) {
+                alert('Por favor, selecciona fecha y hora.');
+                return;
+            }
+
+            // 🆕 Validación: valoración obligatoria (mayor que 0)
+            if (currentRating === 0) {
+                alert('Por favor, selecciona una valoración del 1 al 10.');
+                return;
+            }
+            
+            // 🆕 Crear objeto Date usando fecha y hora seleccionadas
+            const fechaCompleta = new Date(selectedDate + 'T' + selectedTime);
+            
+            const nuevaActividad = {
+                id: Date.now(),
+                fecha: fechaCompleta.toISOString(), // 🆕 Usar fecha personalizada
+                dia: fechaCompleta.getDay(),
+                hora: fechaCompleta.getHours(),
+                mes: fechaCompleta.getMonth(),
+                ano: fechaCompleta.getFullYear(),
+                valoracion: currentRating,
+                persona: personName || null
+            };
+            
+            actividades.push(nuevaActividad);
+            
+            // 🆕 Ordenar actividades por fecha (más recientes primero)
+            actividades.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+            
+            guardarDatos();
+            actualizarInterfaz();
+            document.getElementById('addModal').classList.ad
