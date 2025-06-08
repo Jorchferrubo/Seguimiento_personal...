@@ -286,7 +286,6 @@
     </div>
 
     <script>
-        // Configurar PWA Manifest
         const manifestData = {
             "name": "Seguimiento Personal",
             "short_name": "Seguimiento",
@@ -313,25 +312,18 @@
             ]
         };
 
-        // Crear y enlazar el manifest
         const manifestBlob = new Blob([JSON.stringify(manifestData)], { type: 'application/json' });
         const manifestURL = URL.createObjectURL(manifestBlob);
         document.getElementById('manifest-placeholder').href = manifestURL;
 
-        // Variables globales
         let actividades = [];
         let mostrandoStats = false;
         let deferredPrompt = null;
         let currentRating = 0;
         
-        // Meses en español
         const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
                       'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 
-        // Días de la semana en español
-        const diasSemana = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
-
-        // PWA Install functionality
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
@@ -353,7 +345,6 @@
             document.getElementById('installBanner').classList.add('hidden');
         });
 
-        // Initialize star rating
         function initStarRating() {
             const starContainer = document.getElementById('starRating');
             starContainer.innerHTML = '';
@@ -391,7 +382,6 @@
             return stars;
         }
 
-        // Función para establecer fecha y hora actuales por defecto
         function setDefaultDateTime() {
             const now = new Date();
             const dateString = now.getFullYear() + '-' + 
@@ -409,13 +399,60 @@
             initStarRating();
             setRating(0);
             document.getElementById('personName').value = '';
-            setDefaultDateTime(); // 🆕 Establecer fecha y hora actual por defecto
+            setDefaultDateTime();
         }
 
         function cancelAdd() {
             document.getElementById('addModal').classList.add('hidden');
+        }
+
+        function showNotification(title, text) {
+            const banner = document.getElementById('notificationBanner');
+            document.getElementById('notificationTitle').textContent = title;
+            document.getElementById('notificationText').textContent = text;
             
-            // 🆕 Mostrar notificación de confirmación con fecha
+            banner.classList.remove('hidden');
+            
+            setTimeout(() => {
+                banner.classList.add('hidden');
+            }, 3000);
+        }
+
+        function confirmAdd() {
+            const selectedDate = document.getElementById('activityDate').value;
+            const selectedTime = document.getElementById('activityTime').value;
+            const personName = document.getElementById('personName').value.trim();
+            
+            if (!selectedDate || !selectedTime) {
+                alert('Por favor, selecciona fecha y hora.');
+                return;
+            }
+
+            if (currentRating === 0) {
+                alert('Por favor, selecciona una valoración del 1 al 10.');
+                return;
+            }
+            
+            const fechaCompleta = new Date(selectedDate + 'T' + selectedTime);
+            
+            const nuevaActividad = {
+                id: Date.now(),
+                fecha: fechaCompleta.toISOString(),
+                dia: fechaCompleta.getDay(),
+                hora: fechaCompleta.getHours(),
+                mes: fechaCompleta.getMonth(),
+                ano: fechaCompleta.getFullYear(),
+                valoracion: currentRating,
+                persona: personName || null
+            };
+            
+            actividades.push(nuevaActividad);
+            actividades.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+            
+            guardarDatos();
+            actualizarInterfaz();
+            document.getElementById('addModal').classList.add('hidden');
+            
             const fechaFormateada = fechaCompleta.toLocaleDateString('es-ES', {
                 weekday: 'long',
                 year: 'numeric',
@@ -432,7 +469,6 @@
                 `${fechaFormateada} a las ${horaFormateada}`
             );
             
-            // Vibración si está disponible
             if (navigator.vibrate) {
                 navigator.vibrate(50);
             }
@@ -448,7 +484,6 @@
         }
 
         function showTopRanking() {
-            // Update tab styles
             document.getElementById('topTab').className = 'flex-1 py-2 px-4 rounded-lg bg-purple-600 text-white text-sm';
             document.getElementById('worstTab').className = 'flex-1 py-2 px-4 rounded-lg bg-white/20 text-purple-200 text-sm';
             
@@ -492,7 +527,6 @@
         }
 
         function showWorstRanking() {
-            // Update tab styles
             document.getElementById('topTab').className = 'flex-1 py-2 px-4 rounded-lg bg-white/20 text-purple-200 text-sm';
             document.getElementById('worstTab').className = 'flex-1 py-2 px-4 rounded-lg bg-purple-600 text-white text-sm';
             
@@ -535,42 +569,35 @@
             document.getElementById('rankingContent').innerHTML = html;
         }
 
-        // Cargar datos al iniciar
         function cargarDatos() {
             const datosGuardados = localStorage.getItem('seguimiento-personal-datos');
             if (datosGuardados) {
                 actividades = JSON.parse(datosGuardados);
-                // Migrar datos antiguos sin valoración
                 actividades = actividades.map(a => {
                     if (a.valoracion === undefined) {
-                        a.valoracion = 5; // Valoración por defecto para datos antiguos
+                        a.valoracion = 5;
                         a.persona = null;
                     }
                     return a;
                 });
                 
-                // 🆕 Ordenar actividades por fecha (más recientes primero)
                 actividades.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
             }
             actualizarInterfaz();
             actualizarMesActual();
         }
 
-        // Guardar datos
         function guardarDatos() {
             localStorage.setItem('seguimiento-personal-datos', JSON.stringify(actividades));
         }
 
-        // Actualizar mes actual
         function actualizarMesActual() {
             const ahora = new Date();
             document.getElementById('currentMonth').textContent = meses[ahora.getMonth()] + ' ' + ahora.getFullYear();
         }
 
-        // Quitar actividad (ahora quita la más reciente por fecha, no por orden de adición)
         function quitarActividad() {
             if (actividades.length > 0 && confirm('¿Quitar la última actividad registrada?')) {
-                // 🆕 Encontrar y eliminar la actividad más reciente por fecha
                 const masReciente = actividades.reduce((mas, actual) => 
                     new Date(actual.fecha) > new Date(mas.fecha) ? actual : mas
                 );
@@ -585,7 +612,6 @@
             }
         }
 
-        // Obtener actividades del mes actual
         function getActividadesMesActual() {
             const ahora = new Date();
             return actividades.filter(a => 
@@ -593,21 +619,19 @@
             );
         }
 
-        // Obtener actividades de esta semana
         function getActividadesSemanaActual() {
             const ahora = new Date();
             const inicioSemana = new Date(ahora);
             
-            // Configurar inicio de semana al lunes (día 1) en lugar de domingo (día 0)
             const diaActual = ahora.getDay();
-            const diasAtras = diaActual === 0 ? 6 : diaActual - 1; // Si es domingo (0), ir 6 días atrás
+            const diasAtras = diaActual === 0 ? 6 : diaActual - 1;
             
             inicioSemana.setDate(ahora.getDate() - diasAtras);
-            inicioSemana.setHours(0, 0, 0, 0); // Inicio del día
+            inicioSemana.setHours(0, 0, 0, 0);
             
             const finSemana = new Date(inicioSemana);
             finSemana.setDate(inicioSemana.getDate() + 6);
-            finSemana.setHours(23, 59, 59, 999); // Final del día
+            finSemana.setHours(23, 59, 59, 999);
             
             return actividades.filter(a => {
                 const fechaActividad = new Date(a.fecha);
@@ -615,7 +639,6 @@
             }).length;
         }
 
-        // Calcular promedio del mes
         function getPromedioMes() {
             const actividadesMes = getActividadesMesActual();
             if (actividadesMes.length === 0) return 0;
@@ -624,7 +647,6 @@
             return Math.round((suma / actividadesMes.length) * 10) / 10;
         }
 
-        // Calcular racha actual
         function getRachaActual() {
             if (actividades.length === 0) return 0;
             
@@ -641,14 +663,12 @@
                 }
             }
             
-            // Verificar si la racha sigue activa
             const ultimaActividad = new Date(actividades[actividades.length - 1].fecha);
             const diasDesdeUltima = (new Date() - ultimaActividad) / (1000 * 60 * 60 * 24);
             
             return diasDesdeUltima <= 7 ? racha : 0;
         }
 
-        // Actualizar interfaz
         function actualizarInterfaz() {
             const actividadesMes = getActividadesMesActual();
             const mesActual = actividadesMes.length;
@@ -657,10 +677,8 @@
             const total = actividades.length;
             const promedioMes = getPromedioMes();
             
-            // Actualizar contador principal
             document.getElementById('monthCounter').textContent = mesActual;
             
-            // Mostrar promedio del mes
             const monthAverageDiv = document.getElementById('monthAverage');
             if (mesActual > 0) {
                 monthAverageDiv.classList.remove('hidden');
@@ -679,7 +697,6 @@
                 monthAverageDiv.classList.add('hidden');
             }
             
-            // Mostrar/ocultar elementos según si hay actividades
             const hayActividades = total > 0;
             document.getElementById('quickStats').style.display = hayActividades ? 'grid' : 'none';
             document.getElementById('btnQuitar').style.display = hayActividades ? 'inline-flex' : 'none';
@@ -688,7 +705,6 @@
             document.getElementById('btnRanking').style.display = hayActividades ? 'inline-flex' : 'none';
             document.getElementById('emptyState').style.display = hayActividades ? 'none' : 'block';
             
-            // Actualizar stats rápidas
             if (hayActividades) {
                 document.getElementById('statMonth').textContent = mesActual;
                 document.getElementById('statWeek').textContent = semanaActual;
@@ -697,7 +713,6 @@
             }
         }
 
-        // Toggle estadísticas
         function toggleStats() {
             mostrandoStats = !mostrandoStats;
             const statsSection = document.getElementById('statsSection');
@@ -713,11 +728,9 @@
             }
         }
 
-        // Generar estadísticas detalladas
         function generarEstadisticasDetalladas() {
             if (actividades.length === 0) return;
             
-            // Estadísticas por mes
             const statsPorMes = {};
             actividades.forEach(a => {
                 const clave = meses[a.mes] + ' ' + a.ano;
@@ -728,7 +741,6 @@
                 statsPorMes[clave].suma += a.valoracion;
             });
             
-            // Estadísticas por día de la semana
             const diasSemanaLista = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
             const statsPorDia = Array(7).fill().map(() => ({ count: 0, suma: 0 }));
             actividades.forEach(a => {
@@ -736,14 +748,12 @@
                 statsPorDia[a.dia].suma += a.valoracion;
             });
             
-            // Estadísticas por hora
             const statsPorHora = Array(24).fill().map(() => ({ count: 0, suma: 0 }));
             actividades.forEach(a => {
                 statsPorHora[a.hora].count++;
                 statsPorHora[a.hora].suma += a.valoracion;
             });
 
-            // Estadísticas por persona
             const statsPorPersona = {};
             actividades.forEach(a => {
                 if (a.persona) {
@@ -755,10 +765,8 @@
                 }
             });
             
-            // Generar HTML de estadísticas
             let html = '<div class="space-y-6">';
             
-            // Estadísticas generales
             const promedioGeneral = Math.round((actividades.reduce((acc, a) => acc + a.valoracion, 0) / actividades.length) * 10) / 10;
             html += `
                 <div class="bg-white/10 rounded-lg p-4">
@@ -776,7 +784,6 @@
                 </div>
             `;
             
-            // Por mes
             html += '<div><h4 class="font-semibold text-white mb-2">📅 Por Mes:</h4>';
             Object.entries(statsPorMes)
                 .sort((a, b) => b[1].count - a[1].count)
@@ -795,7 +802,6 @@
                 });
             html += '</div>';
             
-            // Por día
             html += '<div><h4 class="font-semibold text-white mb-2">📆 Por Día de la Semana:</h4>';
             diasSemanaLista.map((dia, index) => ({ dia, ...statsPorDia[index] }))
                 .filter(item => item.count > 0)
@@ -814,7 +820,6 @@
                 });
             html += '</div>';
             
-            // Por hora (top 5)
             html += '<div><h4 class="font-semibold text-white mb-2">🕐 Horarios Más Frecuentes:</h4>';
             statsPorHora.map((data, hora) => ({ 
                     hora: hora.toString().padStart(2, '0') + ':00', 
@@ -837,7 +842,6 @@
                 });
             html += '</div>';
 
-            // Por persona (si hay datos)
             if (Object.keys(statsPorPersona).length > 0) {
                 html += '<div><h4 class="font-semibold text-white mb-2">👥 Por Persona:</h4>';
                 Object.entries(statsPorPersona)
@@ -862,7 +866,6 @@
             document.getElementById('statsContent').innerHTML = html;
         }
 
-        // Exportar datos
         function exportarDatos() {
             const datos = {
                 totalActividades: actividades.length,
@@ -883,7 +886,6 @@
             URL.revokeObjectURL(url);
         }
 
-        // Limpiar datos
         function limpiarDatos() {
             if (confirm('¿Estás seguro de que quieres eliminar todos los datos?')) {
                 actividades = [];
@@ -895,7 +897,6 @@
             }
         }
 
-        // Service Worker para funcionamiento offline
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function() {
                 const swCode = `
@@ -940,64 +941,7 @@
             });
         }
 
-        // Inicializar app
         window.addEventListener('load', cargarDatos);
     </script>
 </body>
-</html>d('hidden');
-        }
-
-        // 🆕 Función para mostrar notificación
-        function showNotification(title, text) {
-            const banner = document.getElementById('notificationBanner');
-            document.getElementById('notificationTitle').textContent = title;
-            document.getElementById('notificationText').textContent = text;
-            
-            banner.classList.remove('hidden');
-            
-            // Ocultar después de 3 segundos
-            setTimeout(() => {
-                banner.classList.add('hidden');
-            }, 3000);
-        }
-
-        function confirmAdd() {
-            // 🆕 Obtener fecha y hora de los campos
-            const selectedDate = document.getElementById('activityDate').value;
-            const selectedTime = document.getElementById('activityTime').value;
-            const personName = document.getElementById('personName').value.trim();
-            
-            // 🆕 Validación: fecha y hora son obligatorias
-            if (!selectedDate || !selectedTime) {
-                alert('Por favor, selecciona fecha y hora.');
-                return;
-            }
-
-            // 🆕 Validación: valoración obligatoria (mayor que 0)
-            if (currentRating === 0) {
-                alert('Por favor, selecciona una valoración del 1 al 10.');
-                return;
-            }
-            
-            // 🆕 Crear objeto Date usando fecha y hora seleccionadas
-            const fechaCompleta = new Date(selectedDate + 'T' + selectedTime);
-            
-            const nuevaActividad = {
-                id: Date.now(),
-                fecha: fechaCompleta.toISOString(), // 🆕 Usar fecha personalizada
-                dia: fechaCompleta.getDay(),
-                hora: fechaCompleta.getHours(),
-                mes: fechaCompleta.getMonth(),
-                ano: fechaCompleta.getFullYear(),
-                valoracion: currentRating,
-                persona: personName || null
-            };
-            
-            actividades.push(nuevaActividad);
-            
-            // 🆕 Ordenar actividades por fecha (más recientes primero)
-            actividades.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
-            
-            guardarDatos();
-            actualizarInterfaz();
-            document.getElementById('addModal').classList.ad
+</html>
